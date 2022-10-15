@@ -2,6 +2,10 @@
 beep beep alarm by michelle, chelsea, william, and jacqs
 
 amplitudes to test:
+0.2, 0.6, 1
+
+frequencies to test:
+40, 300, 500, 800, 1000, 2000, 5000, 8000, 10000, 12000
 
 */
 
