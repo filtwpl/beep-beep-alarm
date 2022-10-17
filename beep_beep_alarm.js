@@ -32,6 +32,7 @@ function setup() {
     let cnv = createCanvas(screen_horizontal, screen_vertical);
     cnv.mousePressed(playOscillator);
     background(255, 199, 216);
+    osc = new p5.Oscillator('sine');
 }
 
 // something here saying welcome to our study, tap to start maybe?
@@ -60,7 +61,7 @@ function draw() {
              * it !!
              */
 
-            freq = random(temp);
+            freq = random(frequencies);
 
             let freqIndex = frequencies.indexOf(freq);
 
