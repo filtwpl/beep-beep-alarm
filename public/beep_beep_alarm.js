@@ -23,7 +23,7 @@ let screen_vertical = screen_horizontal;
 let fin_order = [];
 let fin_index = 0;
 let button;
-// let end_of_study = false;
+let end_of_study = false;
 
 let osc, freq, amp;
 
@@ -39,8 +39,8 @@ function setup() {
 
     //creating instructions button 
     // button_i = createButton('instr');
-    // button_i.position = (10, 10);
-    // button_i.size(80, 30)
+    // button_i.position = (200, 500);
+    // button_i.size(80, 30);
     // button_i.style("font-size", "20px");
 
     //creating the button and telling playOscillator to run after it's clicked
@@ -68,17 +68,17 @@ function draw() {
     } else {
       background(255, 199, 216);
       button.remove();
-      text("Congrats! Study completed.", 10, 30);
+      text("Congrats! Study completed.", 150, 200);
     }
   }
 }
 
 // move forward in the trials by pressing space
-// function keyPressed(playOscillator) {
-//   if (key == 'ENTER' && trial_start && !end_of_study){
-//     playOscillator;
-//   }
-// }
+function keyPressed() {
+  if (keyCode === 32 && trial_start && !end_of_study){
+    playOscillator();
+  }
+}
 
 // this function handles the sound logic and runs when the button is clicked
 function playOscillator() {
@@ -128,6 +128,6 @@ function playOscillator() {
       str += '(' + fin_order[i][0] + ", " + fin_order[i][1] + ')';
     }
     console.log(str);
-    // end_of_study = true;
+    end_of_study = true;
   }
 }
