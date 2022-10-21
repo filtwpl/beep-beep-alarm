@@ -18,8 +18,6 @@ let max_trials = 10;
 let part = 0; // corresponding to the 3 amplitudes each frequency is played at, so part 1 2 3
 let max_parts = 3;
 let trial_start = false;
-let screen_horizontal = 700;
-let screen_vertical = screen_horizontal;
 let fin_order = [];
 let fin_index = 0;
 let button;
@@ -28,14 +26,14 @@ let end_of_study = false;
 let osc, freq, amp;
 
 function setup() {
-    let cnv = createCanvas(screen_horizontal, screen_vertical);
+    let cnv = createCanvas(windowWidth, windowHeight);
     background(255, 199, 216);
     //initiates the oscillator
     osc = new p5.Oscillator('sine');
 
     fill(255, 255, 255);
     textSize(32);
-    text("Welcome to Our Frequency Study!", 90, 200);
+    text("Welcome to Our Frequency Study!", windowWidth / 2 - 250, windowHeight / 2 - 100);
 
     //creating instructions button 
     // button_i = createButton('instr');
@@ -45,9 +43,9 @@ function setup() {
 
     //creating the button and telling playOscillator to run after it's clicked
     button = createButton('play');
-    button.position(300, 250);
-    button.size(80, 30)
-    button.style("font-size", "20px");
+    button.position(windowWidth / 2 - 100, windowHeight / 2 - 50);
+    button.style("font-size", "40px");
+    button.size(200, 100);
     button.mousePressed(playOscillator);
 
 }
@@ -61,14 +59,12 @@ function draw() {
 
   if (trial_start){
     button.html("next trial");
-    button.size(120, 30);
-    button.position(280, 250);
     if (trial_count <= max_trials) {
-      text("Trials: " + trial_count + " out of " + max_trials, 215, 50);
+      text("Trials: " + trial_count + " out of " + max_trials, windowWidth / 2 - 130, windowHeight / 2 - 100);
     } else {
       background(255, 199, 216);
       button.remove();
-      text("Congrats! Study completed.", 150, 200);
+      text("Congrats! Study completed.", windowWidth / 2 - 190, windowHeight / 2 - 100);
     }
   }
 }
@@ -110,8 +106,9 @@ function playOscillator() {
 
   // moving onto next part
   if (trial_count > max_trials) {
-    textSize(16);
-    text("Moving onto the next part! Press the button again when you're ready.", 20, 90);
+    textSize(32);
+    text("Moving onto the next part!", windowWidth / 2 - 190, windowHeight / 2 - 200);
+    text("Press the button when you're ready", windowWidth / 2 - 260, windowHeight / 2 - 160);
     part++;
     trial_count = 0;
     frequencies = freqcpy;
