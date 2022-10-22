@@ -26,28 +26,31 @@ let end_of_study = false;
 let osc, freq, amp;
 
 function setup() {
-    let cnv = createCanvas(windowWidth, windowHeight);
-    background(255, 199, 216);
-    //initiates the oscillator
-    osc = new p5.Oscillator('sine');
+  let cnv = createCanvas(windowWidth, windowHeight);
+  background(255, 199, 216);
+  //initiates the oscillator
+  osc = new p5.Oscillator("sine");
 
-    fill(255, 255, 255);
-    textSize(32);
-    text("Welcome to Our Frequency Study!", windowWidth / 2 - 250, windowHeight / 2 - 100);
+  fill(255, 255, 255);
+  textSize(32);
+  text(
+    "Welcome to Our Frequency Study!",
+    windowWidth / 2 - 250,
+    windowHeight / 2 - 100
+  );
 
-    //creating instructions button 
-    // button_i = createButton('instr');
-    // button_i.position = (200, 500);
-    // button_i.size(80, 30);
-    // button_i.style("font-size", "20px");
+  //creating instructions button
+  // button_i = createButton('instr');
+  // button_i.position = (200, 500);
+  // button_i.size(80, 30);
+  // button_i.style("font-size", "20px");
 
-    //creating the button and telling playOscillator to run after it's clicked
-    button = createButton('play');
-    button.position(windowWidth / 2 - 100, windowHeight / 2 - 50);
-    button.style("font-size", "40px");
-    button.size(200, 100);
-    button.mousePressed(playOscillator);
-
+  //creating the button and telling playOscillator to run after it's clicked
+  button = createButton("play");
+  button.position(windowWidth / 2 - 100, windowHeight / 2 - 50);
+  button.style("font-size", "40px");
+  button.size(200, 100);
+  button.mousePressed(playOscillator);
 }
 
 // TODO: something here saying welcome to our study, tap to start maybe?
@@ -57,21 +60,29 @@ function draw() {
   fill(255, 255, 255);
   textSize(32);
 
-  if (trial_start){
+  if (trial_start) {
     button.html("next trial");
     if (trial_count <= max_trials) {
-      text("Trials: " + trial_count + " out of " + max_trials, windowWidth / 2 - 130, windowHeight / 2 - 100);
+      text(
+        "Trials: " + trial_count + " out of " + max_trials,
+        windowWidth / 2 - 130,
+        windowHeight / 2 - 100
+      );
     } else {
       background(255, 199, 216);
       button.remove();
-      text("Congrats! Study completed.", windowWidth / 2 - 190, windowHeight / 2 - 100);
+      text(
+        "Congrats! Study completed.",
+        windowWidth / 2 - 190,
+        windowHeight / 2 - 100
+      );
     }
   }
 }
 
 // move forward in the trials by pressing space
 function keyPressed() {
-  if (keyCode === 32 && trial_start && !end_of_study){
+  if (keyCode === 32 && trial_start && !end_of_study) {
     playOscillator();
   }
 }
@@ -81,7 +92,7 @@ function playOscillator() {
   if (!trial_start) {
     trial_start = true;
   }
-  
+
   if (trial_count <= max_trials && part < max_parts) {
     background(255, 199, 216);
     osc.start();
@@ -90,6 +101,12 @@ function playOscillator() {
     freq = random(frequencies);
     let freq_index = frequencies.indexOf(freq);
     frequencies.splice(freq_index, 1);
+    console.log(trial_count);
+    console.log(freq);
+
+    if(trial_count == 10){
+      osc.stop();
+    }
 
     amp = amplitudes[part];
     osc.amp(amp);
@@ -99,21 +116,32 @@ function playOscillator() {
     osc.stop(0.8);
     // replacing the console.log(freq) with an array (amp, freq) that
     // keeps track and shows at the end
-    fin_order.push([amp, freq]);
+    if (trial_count != 10) {
+      fin_order.push([amp, freq]);
+      fin_index++;
+      console.log(fin_order);
+    }
+
     trial_count++;
-    fin_index++;
   }
 
   // moving onto next part
   if (trial_count > max_trials) {
     textSize(32);
-    text("Moving onto the next part!", windowWidth / 2 - 190, windowHeight / 2 - 200);
-    text("Press the button when you're ready", windowWidth / 2 - 260, windowHeight / 2 - 160);
+    text(
+      "Moving onto the next part!",
+      windowWidth / 2 - 190,
+      windowHeight / 2 - 200
+    );
+    text(
+      "Press the button when you're ready",
+      windowWidth / 2 - 260,
+      windowHeight / 2 - 160
+    );
     part++;
     trial_count = 0;
     frequencies = freqcpy;
-    if (part == 2)
-      frequencies = freqcpy2;
+    if (part == 2) frequencies = freqcpy2;
   }
 
   // print everything to console at end
@@ -121,8 +149,8 @@ function playOscillator() {
     trial_count = 50; // trial_count > 30 triggers end of study
     console.log("finished");
     let str = "";
-    for (var i=0; i<30; i++) {
-      str += '(' + fin_order[i][0] + ", " + fin_order[i][1] + ')';
+    for (var i = 0; i < 30; i++) {
+      str += "(" + fin_order[i][0] + ", " + fin_order[i][1] + ")";
     }
     console.log(str);
     end_of_study = true;
