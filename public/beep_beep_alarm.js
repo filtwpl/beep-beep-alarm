@@ -51,6 +51,13 @@ function setup() {
   button.style("font-size", "40px");
   button.size(200, 100);
   button.mousePressed(playOscillator);
+
+  // creating alarm button
+  button_alarm = createButton("alarm");
+  button_alarm.position(windowWidth / 2 - 100, windowHeight / 2 + 100);
+  button_alarm.style("font-size", "40px");
+  button_alarm.size(200, 100);
+  button_alarm.mousePressed(playAlarm);
 }
 
 // TODO: something here saying welcome to our study, tap to start maybe?
@@ -154,5 +161,29 @@ function playOscillator() {
     }
     console.log(str);
     end_of_study = true;
+  }
+}
+
+function playAlarm(){
+  playAlarmHelper(0);
+}
+
+function playAlarmHelper(num) {
+  let freq0 = 800;
+  let freq1 = 12000;
+  let alarm = new p5.Oscillator("sine");
+  let freq_to_play = freq0;
+  alarm.start();
+  alarm.amp(0.6);
+  if (num % 2 == 1) {
+    freq_to_play = freq1;
+  }
+  alarm.freq(freq_to_play);
+  alarm.stop(0.3);
+  console.log(freq_to_play);
+  console.log(num);
+  timer = setTimeout (() => {playAlarmHelper(num+1)}, 200);
+  if (num >= 10) {
+    clearTimeout(timer);
   }
 }
