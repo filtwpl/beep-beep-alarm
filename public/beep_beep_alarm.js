@@ -169,7 +169,7 @@ function playAlarm(){
 }
 
 function playAlarmHelper(num) {
-  let freq0 = 800;
+  let freq0 = 8000;
   let freq1 = 12000;
   let alarm = new p5.Oscillator("sine");
   let freq_to_play = freq0;
